@@ -1,26 +1,66 @@
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
+// PILA - STACK
 
-//Import di Classi Java necessarie al funzionamento del programma
-import java.util.Scanner;
+public boolean isEmpty() {
+    return top == null;
+}
 
-// Classe principale, con metodo main
-class Esercizio {
-    // Il programma parte con una chiamata a main().
-    public static void main(String args[])
-    {
-        //Variabili del programma
-        String nome;
+public void push(T dato) {
+    Nodo<T> nodo = new Nodo<>(dato);
 
-        //Creo l'oggetto in per l'input da tastiera
-        Scanner in = new Scanner( System.in );
-
-        //Leggo l'input da tastiera
-        System.out.print("Inserisci il tuo nome: ");
-        nome = in.nextLine();
-
-        //Output del nome acquisito da tastiera
-        System.out.println("Ciao "+nome+"!");
+    if (top == null) {
+        top = nodo;
+    } else {
+        nodo.next = top;
+        top = nodo;
     }
 }
 
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
+public T pop() {
+    if (top == null) {
+        throw new NoSuchElementException("Pila vuota");
+    }
+
+    T dato = top.dato;
+    top = top.next;
+    return dato;
+}
+
+public T peek() {
+    if (top == null) {
+        throw new NoSuchElementException("Pila vuota");
+    }
+
+    return top.dato;
+}
+
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    Pila<T> pilaB = pila; // copia (presunta)
+
+    try {
+        while (true) {
+            T dato = pilaB.pop();
+            sb.append(dato);
+            sb.append(" --> ");
+        }
+    } catch (Exception e) {
+        sb.append("NULL");
+    }
+
+    return sb.toString();
+}
+
+public int size() {
+    Pila<T> pilaB = pila; // copia (presunta)
+    int cont = 0;
+
+    try {
+        while (true) {
+            T dato = pilaB.pop();
+            cont++;
+        }
+    } catch (Exception e) {
+        return cont;
+    }
+}
